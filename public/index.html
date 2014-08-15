@@ -1,0 +1,49 @@
+<html ng-app>
+  <head>
+    <title>
+    </title>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js">
+    </script>
+  </head>
+  <body>
+    <h1> Hello </h1>
+    <label>Name:</label>
+    <div ng-controller = "firstController">
+      <form action="">
+        <input type="checkbox" ng-model="checked" /><label>Show</label>
+        <input type="search" ng-model="search" /><label>Search</label>
+        <input type="textbox" ng-model="newName" /><label>New Name:</label>
+        <input type="number" ng-model="newAge" /><label>New Age:</label>
+        <button ng-click="add()">Add</button>
+      </form>
+      <ul>
+        <li ng-repeat="person in people | filter:search" ng-show="checked">
+        {{person.name}} | {{person.age}}
+        <button ng-click="remove($index)">x</button>
+        <span ng-show="$first">First</span>
+        <span ng-show="$last">Last</span>
+        <span ng-show="$middle">Middle</span>
+        </li>
+      </ul>
+    </div>
+    <script>
+      var firstController = function($scope) {
+        $scope.people = [
+          {name: "John", age: 30},
+          {name: "David", age: 40},
+          {name: "Pete", age: 24},
+          {name: "james", age: 56}
+        ];
+        $scope.add = function() {
+          $scope.people.push({name: $scope.newName, age: $scope.newAge});
+          $scope.newName = "";
+          $scope.newAge = "";
+        };
+        $scope.remove = function($index) {
+          $scope.people.splice($index, 1);
+        };
+      };
+    </script>
+  </body>
+</html>
